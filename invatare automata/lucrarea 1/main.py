@@ -2,6 +2,7 @@ from resources import config
 import matplotlib.pyplot as plt
 import random
 import math
+import numpy
 import numpy as np
 
 def gauss_convert(value,m_value,sigma_value):
@@ -17,6 +18,7 @@ def choose_coordonate_random(sigma,m):
     return random_coordonate
 
 def main():
+    data_set = []
     graph_size = config.interval
     interval = config.interval
     zones = config.zones
@@ -26,10 +28,12 @@ def main():
         random_zone_key = random.choice(list(zones))
         rand_x = choose_coordonate_random(zones[random_zone_key]['interval']['sigmax'],zones[random_zone_key]['interval']['mx'])
         rand_y = choose_coordonate_random(zones[random_zone_key]['interval']['sigmay'],zones[random_zone_key]['interval']['my'])
-
+        data_set.append([rand_x,rand_y])
         plt.scatter(rand_x,rand_y,c=zones[random_zone_key]['color'],s=1)
-    plt.show()
-
-
+    #lt.show()
+    np_data_set = numpy.array(data_set)
+    numpy.savetxt('data_set.txt',np_data_set)
+    print(np_data_set)
+    print("Finish")
 if __name__ == "__main__":
     main()
